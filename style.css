@@ -15,6 +15,7 @@ html {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-color: rgb(228, 215, 215);
 }
 
 .header,
@@ -22,6 +23,8 @@ html {
   padding: 15px;
   width: 100%;
   text-align: center;
+  font-size: 30px;
+  color: rgb(95, 75, 75);
 }
 
 .calculator {
@@ -30,25 +33,27 @@ html {
   height: 530px;
   border-radius: 20px;
   text-align: center;
-  border: solid black 7px;
+  border: solid black 10px;
   box-shadow: 5px 10px gray;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  background-color: rgb(218, 106, 106);
 }
 
 .display {
   padding: 15px 20px 15px 20px;
   height: 20%;
   text-align: right;
-  font-size: 25px;
-  background-color: black;
+  font-size: 28px;
+  background-color: rgb(49, 38, 38);
   color: white;
   border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: right;
+  box-shadow: 2px 3px rgb(87, 78, 78);
 }
 
 .key {
@@ -57,23 +62,34 @@ html {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  background-color: white;
   gap: 10px;
 }
 
 .key button {
   border-radius: 15px;
-  background-color: white;
+  background-color: rgb(241, 223, 223);
   flex: 1 1 80px;
   border: 3px solid black;
   font-size: 40px;
   font-family: "Gluten", cursive;
+  box-shadow: 2px 3px rgb(87, 78, 78);
 }
 
 .key button:hover {
   background-color: gray;
 }
 
+/*  */
+button.multiply,
+button.divide,
+button.minus,
+button.plus,
+button.equals,
+button.clear {
+  background-color: rgb(223, 186, 186);
+}
+
+/* Flex ordering */
 .seven,
 .eight,
 .nine,
