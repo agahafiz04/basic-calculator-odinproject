@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Gluten:wght@100;200;300;400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+}
+
+body,
+html {
+  min-height: 100vh;
+  font-family: "Gluten", cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header,
+.footer {
+  padding: 15px;
+  width: 100%;
+  text-align: center;
+}
+
+.calculator {
+  padding: 20px;
+  width: 450px;
+  height: 530px;
+  border-radius: 20px;
+  text-align: center;
+  border: solid black 7px;
+  box-shadow: 5px 10px gray;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.display {
+  padding: 15px 20px 15px 20px;
+  height: 20%;
+  text-align: right;
+  font-size: 25px;
+  background-color: black;
+  color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.key {
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: white;
+  gap: 10px;
+}
+
+.key button {
+  border-radius: 15px;
+  background-color: white;
+  flex: 1 1 80px;
+  border: 3px solid black;
+  font-size: 40px;
+  font-family: "Gluten", cursive;
+}
+
+.key button:hover {
+  background-color: gray;
+}
+
+.seven,
+.eight,
+.nine,
+.divide {
+  order: 1;
+}
+
+.four,
+.five,
+.six,
+.multiply {
+  order: 2;
+}
+
+.one,
+.two,
+.three,
+.minus {
+  order: 3;
+}
+
+.zero,
+.clear,
+.equals,
+.plus {
+  order: 4;
+}
