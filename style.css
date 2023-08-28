@@ -82,8 +82,8 @@ html {
 /*  */
 button.multiply,
 button.divide,
-button.minus,
-button.plus,
+button.subtract,
+button.add,
 button.equals,
 button.clear {
   background-color: rgb(223, 186, 186);
@@ -107,13 +107,13 @@ button.clear {
 .one,
 .two,
 .three,
-.minus {
+.subtract {
   order: 3;
 }
 
 .zero,
 .clear,
 .equals,
-.plus {
+.add {
   order: 4;
 }
