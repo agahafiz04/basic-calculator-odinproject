@@ -1,11 +1,11 @@
 // Calculation Variable
 let firstNumber = 0;
 let secondNumber = 0;
-let operator = 0;
+let operator = null;
 
 let count = 0;
 let tempNum = 0;
-let result = null;
+let result = 0;
 
 // Display Variable
 let displayValue = null;
@@ -13,6 +13,8 @@ let displayState = "";
 
 const displayEl = document.querySelector(".display-text");
 const buttonEl = document.querySelectorAll(".key button");
+
+buttonEl.disable = true;
 
 buttonEl.forEach(function (buttonNumber) {
   buttonNumber.addEventListener("click", function () {
@@ -26,24 +28,46 @@ function CalculateFunction(buttonNumber) {
   const buttonValue = Array.from(buttonNumber.classList);
 
   if (result > 0) {
-    clearDisplay();
-    displayFunction(buttonNumber);
-    result = 0;
+    console.log("state two");
+    if (buttonValue.includes("number") && count == 0) {
+      console.log("state two number times");
+      tempNum = displayEl.textContent;
+      secondNumber = tempNum;
+    } else if (buttonValue.includes("operand") && count == 0) {
+      console.log("operand on state two");
+      count += 2;
+      operator = buttonValue[2];
+      console.log(`The operator is ${operator}, Go To Result`);
+    }
   }
 
-  if (buttonValue.includes("number") && count == 0) {
-    tempNum = displayEl.textContent;
-    firstNumber = tempNum;
-  } else if (buttonValue.includes("operand") && count == 0) {
-    count++;
-    operator = buttonValue[2];
-    console.log(`The operator is ${operator}, Change To Second Number`);
-  } else if (buttonValue.includes("number") && count == 1) {
-    tempNum = displayEl.textContent;
-    secondNumber = tempNum;
-  } else if (buttonValue.includes("equals")) {
+  if (result == 0) {
+    console.log("state one");
+    if (buttonValue.includes("number") && count == 0) {
+      tempNum = displayEl.textContent;
+      firstNumber = tempNum;
+    } else if (buttonValue.includes("operand") && count == 0) {
+      count++;
+      operator = buttonValue[2];
+      console.log(`The operator is ${operator}, Change To Second Number`);
+    } else if (buttonValue.includes("number") && count == 1) {
+      tempNum = displayEl.textContent;
+      secondNumber = tempNum;
+    } else if (buttonValue.includes("operand") && count == 1) {
+      count++;
+    }
+  }
+
+  if (buttonValue.includes("equals") || count >= 2) {
+    console.log(`state equals`);
     result = operate(firstNumber, secondNumber, operator);
     displayEl.textContent = result;
+
+    count = 0;
+    tempNum = 0;
+    firstNumber = result;
+    secondNumber = 0;
+    operator = null;
   }
 
   console.log(`Your first number is ${firstNumber} and tempNum is ${tempNum}`);
@@ -100,6 +124,8 @@ function clearDisplay() {
   secondNumber = 0;
   operator = null;
   count = 0;
+  result = 0;
+
   displayValue = null;
   displayState = "";
 }
@@ -134,8 +160,6 @@ function divide(numOne, numTwo) {
 }
 
 // Tomorrow Task
-// 1. Store the number to an array
-// 2. Try to calculate using the array based on the operand
 // 3. Your calculator should not evaluate more than a single pair of numbers at a time.
 
 // 4. Pressing = before entering all of the numbers or an operator could cause problems!
