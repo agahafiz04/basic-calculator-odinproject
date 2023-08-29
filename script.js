@@ -1,7 +1,11 @@
 // Calculation Variable
 let firstNumber = 0;
 let secondNumber = 0;
-let operator = null;
+let operator = 0;
+
+let count = 0;
+let tempNum = 0;
+let result = null;
 
 // Display Variable
 let displayValue = null;
@@ -10,27 +14,68 @@ let displayState = "";
 const displayEl = document.querySelector(".display-text");
 const buttonEl = document.querySelectorAll(".key button");
 
-// Display The Number
 buttonEl.forEach(function (buttonNumber) {
   buttonNumber.addEventListener("click", function () {
-    displayValue = buttonNumber.textContent;
-    const buttonValue = Array.from(buttonNumber.classList);
-
-    if (displayState == "Operand") {
-      displayEl.textContent = "";
-    }
-
-    if (buttonValue.includes("number")) {
-      displayNumber();
-    } else if (buttonValue.includes("operand") && displayState == "Number") {
-      displayOperand();
-    } else if (buttonValue.includes("clear")) {
-      clearDisplay();
-    }
-
-    console.log(displayState);
+    displayFunction(buttonNumber);
+    CalculateFunction(buttonNumber);
   });
 });
+
+// Calculate The Number
+function CalculateFunction(buttonNumber) {
+  const buttonValue = Array.from(buttonNumber.classList);
+
+  if (result > 0) {
+    clearDisplay();
+    displayFunction(buttonNumber);
+    result = 0;
+  }
+
+  if (buttonValue.includes("number") && count == 0) {
+    tempNum = displayEl.textContent;
+    firstNumber = tempNum;
+  } else if (buttonValue.includes("operand") && count == 0) {
+    count++;
+    operator = buttonValue[2];
+    console.log(`The operator is ${operator}, Change To Second Number`);
+  } else if (buttonValue.includes("number") && count == 1) {
+    tempNum = displayEl.textContent;
+    secondNumber = tempNum;
+  } else if (buttonValue.includes("equals")) {
+    result = operate(firstNumber, secondNumber, operator);
+    displayEl.textContent = result;
+  }
+
+  console.log(`Your first number is ${firstNumber} and tempNum is ${tempNum}`);
+  console.log(
+    `Your second number is ${secondNumber} and tempNum is ${tempNum}`
+  );
+  console.log(`Your count number is ${count}`);
+  console.log(`Your result is ${result}`);
+}
+
+// Display The Number
+function displayFunction(buttonNumber) {
+  displayValue = buttonNumber.textContent;
+  const buttonValue = Array.from(buttonNumber.classList);
+
+  if (displayState == "Operand") {
+    displayState = "Number";
+    displayEl.textContent = "";
+  }
+
+  if (buttonValue.includes("number")) {
+    displayNumber();
+  } else if (buttonValue.includes("operand") && displayState == "Number") {
+    displayOperand();
+  } else if (buttonValue.includes("clear")) {
+    clearDisplay();
+  } else if (buttonValue.includes("equals")) {
+    console.log("Equals Pressed");
+  }
+
+  console.log(displayState);
+}
 
 function displayNumber() {
   displayState = "Number";
@@ -54,16 +99,12 @@ function clearDisplay() {
   firstNumber = 0;
   secondNumber = 0;
   operator = null;
-
+  count = 0;
   displayValue = null;
   displayState = "";
 }
 
-// Calculate The Number
-function preCalculate() {}
-
-function postCalculate() {}
-
+// Calculation Back End
 function operate(numOne, numTwo, operate) {
   if (operate == "add") {
     return add(numOne, numTwo);
