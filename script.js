@@ -1,91 +1,49 @@
+// Calculation Variable
 let firstNumber = 0;
 let secondNumber = 0;
 let operator = null;
 
+// Display Variable
 let displayValue = null;
-let buttonValue = null;
-let tempValue = null;
-
-let numArray = [];
-
-let isOperand = false;
-let count = 0;
-
-let equalIsPressed = false;
+let displayState = "";
 
 const displayEl = document.querySelector(".display-text");
 const buttonEl = document.querySelectorAll(".key button");
 
-// Display Algorithm
+// Display The Number
 buttonEl.forEach(function (buttonNumber) {
   buttonNumber.addEventListener("click", function () {
-    // Temporary
-    if (count >= 2) {
-      console.log(count);
-      clearDisplay();
+    displayValue = buttonNumber.textContent;
+    const buttonValue = Array.from(buttonNumber.classList);
+
+    if (displayState == "Operand") {
+      displayEl.textContent = "";
     }
 
-    displayValue = Array.from(buttonNumber.classList);
-
-    if (displayValue.includes("number")) {
-      isOperand = false;
-      buttonValue = buttonNumber.textContent;
+    if (buttonValue.includes("number")) {
       displayNumber();
-    } else if (displayValue.includes("operand")) {
-      if (tempValue !== null && isOperand == false) {
-        isOperand = true;
-        operator = displayValue;
-        buttonValue = buttonNumber.textContent;
-        preCalculateNumber();
-        displayOperand();
-      }
-    } else if (displayValue.includes("clear")) {
+    } else if (buttonValue.includes("operand") && displayState == "Number") {
+      displayOperand();
+    } else if (buttonValue.includes("clear")) {
       clearDisplay();
-    } else if (displayValue.includes("equals")) {
-      if (tempValue !== null && isOperand == false && count !== 0) {
-        equalIsPressed = true;
-        preCalculateNumber();
-      }
     }
+
+    console.log(displayState);
   });
 });
 
-function preCalculateNumber() {
-  count++;
-  if (count == 1) {
-    firstNumber = displayEl.textContent;
-    console.log(count);
-    console.log(`The First Number Val is ${firstNumber}`);
-    console.log(displayEl.textContent);
-  } else if (equalIsPressed == true) {
-    secondNumber = displayEl.textContent;
-    console.log(count);
-    console.log(`The Second Number Val is ${secondNumber}`);
-    console.log(displayEl.textContent);
-    postCalculateNumber();
-  }
-}
-
-function postCalculateNumber() {
-  console.log(operator[2]);
-  let result = operate(firstNumber, secondNumber, operator[2]);
-  displayEl.textContent = result;
-  console.log(count);
-}
-
 function displayNumber() {
-  if (tempValue == "Operand") {
-    displayEl.textContent = "";
-  }
-  if (displayEl.textContent.length <= 8) {
-    tempValue = "Number";
-    displayEl.textContent += `${buttonValue}`;
+  displayState = "Number";
+  if (displayEl.textContent.length > 10) {
+    console.log("Another Digit Is Not Allowed, Press AC To Reset");
+  } else {
+    displayEl.textContent += `${displayValue}`;
   }
 }
 
 function displayOperand() {
-  tempValue = "Operand";
-  displayEl.textContent = `${buttonValue}`;
+  displayState = "Operand";
+  displayEl.textContent = `${displayValue}`;
 }
 
 function clearDisplay() {
@@ -98,16 +56,13 @@ function clearDisplay() {
   operator = null;
 
   displayValue = null;
-  buttonValue = null;
-  tempValue = null;
-
-  numArray = [];
-
-  isOperand = false;
-  count = 0;
-
-  equalIsPressed = false;
+  displayState = "";
 }
+
+// Calculate The Number
+function preCalculate() {}
+
+function postCalculate() {}
 
 function operate(numOne, numTwo, operate) {
   if (operate == "add") {
