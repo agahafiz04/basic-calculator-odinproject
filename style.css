@@ -30,7 +30,7 @@ html {
 .calculator {
   padding: 20px;
   width: 450px;
-  height: 530px;
+  height: 540px;
   border-radius: 20px;
   text-align: center;
   border: solid rgb(240, 174, 174) 10px;
@@ -56,6 +56,23 @@ html {
   box-shadow: 2px 3px rgb(87, 78, 78);
 }
 
+/* .display-text {
+} */
+
+.display-two {
+  display: block;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.display-text-two {
+  text-align: center;
+  font-size: 2rem;
+  border-radius: 5px;
+  padding: 0;
+  margin: 0;
+}
+
 .key {
   height: 80%;
   display: flex;
@@ -68,7 +85,7 @@ html {
 .key button {
   border-radius: 15px;
   background-color: rgb(241, 223, 223);
-  flex: 1 1 80px;
+  flex: 1 1 75px;
   border: 3px solid black;
   font-size: 40px;
   font-family: "Gluten", cursive;
@@ -112,8 +129,12 @@ button.clear {
 }
 
 .zero,
+.decimal,
 .clear,
-.equals,
 .add {
   order: 4;
+}
+
+.equals {
+  order: 5;
 }
