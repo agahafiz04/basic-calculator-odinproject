@@ -16,6 +16,12 @@ const displayElTwo = document.querySelector(".display-text-two");
 const buttonEl = document.querySelectorAll(".key button");
 const buttonDecimal = document.querySelector(".decimal");
 
+// Backspace button
+function deleteNum() {
+  displayEl.textContent = displayEl.textContent.slice(0, -1);
+  tempNum = displayEl.textContent;
+}
+
 buttonEl.forEach(function (buttonNumber) {
   buttonNumber.addEventListener("click", function () {
     displayElTwo.textContent = "";
@@ -27,18 +33,11 @@ buttonEl.forEach(function (buttonNumber) {
 
 // Check The State
 function checkFunction(buttonNumber) {
-  if (displayEl.textContent.includes(".")) {
-    buttonDecimal.disabled = true;
-  } else {
-    buttonDecimal.disabled = false;
-  }
+  const buttonValue = Array.from(buttonNumber.classList);
 
   if (result == NaN || result == undefined) {
-    displayElTwo.textContent = "Error, please AC";
     clearDisplay();
   }
-
-  const buttonValue = Array.from(buttonNumber.classList);
 
   if (displayEl.textContent == "") {
     if (buttonValue.includes("number")) {
@@ -77,6 +76,14 @@ function CalculateFunction(buttonNumber) {
     } else if (buttonValue.includes("operand") && count == 1) {
       console.log("state one if four");
       count++;
+    } else if (buttonValue.includes("backspace") && count == 0) {
+      console.log("backspace pressed firstnumber and tempnum deleted");
+      deleteNum();
+      firstNumber = tempNum;
+    } else if (buttonValue.includes("backspace") && count == 1) {
+      console.log("backspace pressed secondnumber and tempnum deleted");
+      deleteNum();
+      secondNumber = tempNum;
     }
   }
 
@@ -92,6 +99,18 @@ function CalculateFunction(buttonNumber) {
       operator = buttonValue[2];
       console.log(`Your operator is ${operator}`);
       count += 2;
+    } else if (
+      buttonValue.includes("backspace") &&
+      count == 0 &&
+      tempNum == 0
+    ) {
+      console.log(`Hapus`);
+      deleteNum();
+      result = tempNum;
+    } else if (buttonValue.includes("backspace") && result !== secondNumber) {
+      console.log(`Hapus`);
+      deleteNum();
+      secondNumber = tempNum;
     }
   }
 
@@ -108,18 +127,13 @@ function CalculateFunction(buttonNumber) {
       count = 0;
     } else if (result !== 0) {
       console.log("state equals");
-      displayEquals();
 
       operator = buttonValue[2];
       firstNumber = result;
-      secondNumber = 0;
-      tempNum = 0;
       count = 0;
+      displayEquals();
     }
   }
-
-  // 10 + 5 - 7 - 2 = 6
-  // 12 + 7 = 19, - 5 * 3 = 42 - 3 - 2 = 37
 
   console.log(`Your first number is ${firstNumber} and tempNum is ${tempNum}`);
   console.log(
@@ -148,6 +162,14 @@ function displayFunction(buttonNumber) {
     clearDisplay();
   }
 
+  if (buttonValue.includes("decimal") || displayEl.textContent.includes(".")) {
+    console.log("DISABLED!");
+    buttonDecimal.disabled = true;
+  } else if (buttonValue.includes("nd") || buttonValue.includes("operand")) {
+    console.log("ENABLED!");
+    buttonDecimal.disabled = false;
+  }
+
   console.log(displayState);
 }
 
@@ -161,12 +183,13 @@ function displayNumber() {
 }
 
 function displayOperand() {
+  console.log(`the display value is:${displayValue}`);
   displayState = "Operand";
   displayEl.textContent = `${displayValue}`;
 }
 
 function displayEquals() {
-  displayState = "Equals";
+  console.log("TAMPILKAN HASIL");
   displayEl.textContent = `${result}`;
 }
 
@@ -222,7 +245,3 @@ function divide(numOne, numTwo) {
   let total = Number(numOne) / Number(numTwo);
   return Number(total.toFixed(5));
 }
-
-// Tommorow Task :)
-// 1. Add Keyboard Support
-// 2. Add Backspace Support

@@ -31,7 +31,6 @@ html {
   padding: 20px;
   width: 450px;
   height: 540px;
-  border-radius: 20px;
   text-align: center;
   border: solid rgb(240, 174, 174) 10px;
   box-shadow: 10px 15px gray;
@@ -54,6 +53,7 @@ html {
   align-items: center;
   justify-content: right;
   box-shadow: 2px 3px rgb(87, 78, 78);
+  overflow: hidden;
 }
 
 /* .display-text {
@@ -61,14 +61,12 @@ html {
 
 .display-two {
   display: block;
-  border-radius: 10px;
   padding: 10px;
 }
 
 .display-text-two {
   text-align: center;
   font-size: 2rem;
-  border-radius: 5px;
   padding: 0;
   margin: 0;
 }
@@ -135,6 +133,7 @@ button.clear {
   order: 4;
 }
 
+.backspace,
 .equals {
   order: 5;
 }
