@@ -102,13 +102,13 @@ function CalculateFunction(buttonNumber) {
     } else if (
       buttonValue.includes("backspace") &&
       count == 0 &&
-      tempNum == 0
+      operator == undefined
     ) {
-      console.log(`Hapus`);
+      console.log(`Hapus Satu`);
       deleteNum();
       result = tempNum;
     } else if (buttonValue.includes("backspace") && result !== secondNumber) {
-      console.log(`Hapus`);
+      console.log(`Hapus Dua`);
       deleteNum();
       secondNumber = tempNum;
     }
