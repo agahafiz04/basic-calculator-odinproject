@@ -115,8 +115,9 @@ function CalculateFunction(buttonNumber) {
   if (result !== 0) {
     console.log("state two");
     if (buttonValue.includes("number") && count == 0 && operator == undefined) {
-      displayElTwo.textContent = "Error, can't enter number on result";
-      clearDisplay();
+      result = displayEl.textContent;
+      // displayElTwo.textContent = "Error, can't enter number on result";
+      // clearDisplay();
     } else if (buttonValue.includes("number") && count == 0) {
       console.log("state two if one");
       tempNum = displayEl.textContent;
