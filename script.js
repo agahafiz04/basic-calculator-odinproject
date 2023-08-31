@@ -12,9 +12,33 @@ let displayValue = null;
 let displayState = "";
 
 const displayEl = document.querySelector(".display-text");
+const dummyDisplayEl = document.querySelector(".display-dummy");
 const displayElTwo = document.querySelector(".display-text-two");
 const buttonEl = document.querySelectorAll(".key button");
 const buttonDecimal = document.querySelector(".decimal");
+
+console.log(dummyDisplayEl);
+
+// Keyboard Support
+document.addEventListener("keydown", (e) => {
+  console.log(e.code);
+  if (e.key == "." || (e.key >= 0 && e.key <= 9)) {
+    document.querySelector("#btn" + e.code).click();
+  } else if (e.key == "Enter") {
+    document.querySelector(".equals").click();
+  } else if (e.key == "Backspace") {
+    document.querySelector(".backspace").click();
+  } else if (
+    e.code == "Equal" ||
+    e.code == "Minus" ||
+    e.code == "KeyX" ||
+    e.code == "Slash" ||
+    e.code == "KeyC"
+  ) {
+    event.preventDefault();
+    document.querySelector("#btn" + e.code).click();
+  }
+});
 
 // Backspace button
 function deleteNum() {
@@ -25,6 +49,7 @@ function deleteNum() {
 buttonEl.forEach(function (buttonNumber) {
   buttonNumber.addEventListener("click", function () {
     displayElTwo.textContent = "";
+    dummyDisplayEl.textContent = "";
     checkFunction(buttonNumber);
     displayFunction(buttonNumber);
     CalculateFunction(buttonNumber);
@@ -89,7 +114,10 @@ function CalculateFunction(buttonNumber) {
 
   if (result !== 0) {
     console.log("state two");
-    if (buttonValue.includes("number") && count == 0) {
+    if (buttonValue.includes("number") && count == 0 && operator == undefined) {
+      displayElTwo.textContent = "Error, can't enter number on result";
+      clearDisplay();
+    } else if (buttonValue.includes("number") && count == 0) {
       console.log("state two if one");
       tempNum = displayEl.textContent;
       secondNumber = tempNum;
@@ -98,6 +126,7 @@ function CalculateFunction(buttonNumber) {
       console.log("state two if two");
       operator = buttonValue[2];
       console.log(`Your operator is ${operator}`);
+      dummyDisplayEl.textContent = buttonNumber.textContent;
       count += 2;
     } else if (
       buttonValue.includes("backspace") &&
