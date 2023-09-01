@@ -216,20 +216,6 @@ function operate(numOne, numTwo, operate) {
   }
 }
 
-// Calculation Back End
-// function operate(numOne, numTwo, operate) {
-//   switch (operate) {
-//     case "add":
-//       return add(numOne, numTwo);
-//     case "substract":
-//       return subtract(numOne, numTwo);
-//     case "multiply":
-//       return multiply(numOne, numTwo);
-//     case "divide":
-//       return divide(numOne, numTwo);
-//   }
-// }
-
 function add(numOne, numTwo) {
   let total = Number(numOne) + Number(numTwo);
   return Number(total.toFixed(5));
