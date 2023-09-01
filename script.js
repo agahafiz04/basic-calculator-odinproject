@@ -17,11 +17,8 @@ const displayElTwo = document.querySelector(".display-text-two");
 const buttonEl = document.querySelectorAll(".key button");
 const buttonDecimal = document.querySelector(".decimal");
 
-console.log(dummyDisplayEl);
-
 // Keyboard Support
 document.addEventListener("keydown", (e) => {
-  console.log(e.code);
   if (e.key == "." || (e.key >= 0 && e.key <= 9)) {
     document.querySelector("#btn" + e.code).click();
   } else if (e.key == "Enter") {
@@ -84,49 +81,36 @@ function CalculateFunction(buttonNumber) {
   const buttonValue = Array.from(buttonNumber.classList);
 
   if (result == 0) {
-    console.log("state one");
     if (buttonValue.includes("number") && count == 0) {
-      console.log("state one if one");
       tempNum = displayEl.textContent;
       firstNumber = tempNum;
     } else if (buttonValue.includes("operand") && count == 0) {
-      console.log("state one if two");
       count++;
       operator = buttonValue[2];
-      console.log(`The operator is ${operator}, Change To Second Number`);
     } else if (buttonValue.includes("number") && count == 1) {
-      console.log("state one if three");
       tempNum = displayEl.textContent;
       secondNumber = tempNum;
     } else if (buttonValue.includes("operand") && count == 1) {
-      console.log("state one if four");
       count++;
     } else if (buttonValue.includes("backspace") && count == 0) {
-      console.log("backspace pressed firstnumber and tempnum deleted");
       deleteNum();
       firstNumber = tempNum;
     } else if (buttonValue.includes("backspace") && count == 1) {
-      console.log("backspace pressed secondnumber and tempnum deleted");
       deleteNum();
       secondNumber = tempNum;
     }
   }
 
   if (result !== 0) {
-    console.log("state two");
     if (buttonValue.includes("number") && count == 0 && operator == undefined) {
       result = displayEl.textContent;
-      // displayElTwo.textContent = "Error, can't enter number on result";
-      // clearDisplay();
     } else if (buttonValue.includes("number") && count == 0) {
-      console.log("state two if one");
       tempNum = displayEl.textContent;
       secondNumber = tempNum;
       result = operate(firstNumber, secondNumber, operator);
     } else if (buttonValue.includes("operand") && count == 0) {
-      console.log("state two if two");
       operator = buttonValue[2];
-      console.log(`Your operator is ${operator}`);
+
       dummyDisplayEl.textContent = buttonNumber.textContent;
       count += 2;
     } else if (
@@ -134,11 +118,9 @@ function CalculateFunction(buttonNumber) {
       count == 0 &&
       operator == undefined
     ) {
-      console.log(`Hapus Satu`);
       deleteNum();
       result = tempNum;
     } else if (buttonValue.includes("backspace") && result !== secondNumber) {
-      console.log(`Hapus Dua`);
       deleteNum();
       secondNumber = tempNum;
     }
@@ -146,7 +128,6 @@ function CalculateFunction(buttonNumber) {
 
   if (buttonValue.includes("equals") || count >= 2) {
     if (result == 0) {
-      console.log("state equals");
       result = operate(firstNumber, secondNumber, operator);
       displayEquals();
 
@@ -156,22 +137,12 @@ function CalculateFunction(buttonNumber) {
       tempNum = 0;
       count = 0;
     } else if (result !== 0) {
-      console.log("state equals");
-
       operator = buttonValue[2];
       firstNumber = result;
       count = 0;
       displayEquals();
     }
   }
-
-  console.log(`Your first number is ${firstNumber} and tempNum is ${tempNum}`);
-  console.log(
-    `Your second number is ${secondNumber} and tempNum is ${tempNum}`
-  );
-  console.log(`Your count number is ${count}`);
-  console.log(`Your result is ${result}`);
-  console.log(`Your operator is ${operator}`);
 }
 
 // Display The Number
@@ -193,33 +164,26 @@ function displayFunction(buttonNumber) {
   }
 
   if (buttonValue.includes("decimal") || displayEl.textContent.includes(".")) {
-    console.log("DISABLED!");
     buttonDecimal.disabled = true;
   } else if (buttonValue.includes("nd") || buttonValue.includes("operand")) {
-    console.log("ENABLED!");
     buttonDecimal.disabled = false;
   }
-
-  console.log(displayState);
 }
 
 function displayNumber() {
   displayState = "Number";
   if (displayEl.textContent.length > 10) {
-    console.log("Another Digit Is Not Allowed, Press AC To Reset");
   } else {
     displayEl.textContent += `${displayValue}`;
   }
 }
 
 function displayOperand() {
-  console.log(`the display value is:${displayValue}`);
   displayState = "Operand";
   displayEl.textContent = `${displayValue}`;
 }
 
 function displayEquals() {
-  console.log("TAMPILKAN HASIL");
   displayEl.textContent = `${result}`;
 }
 
