@@ -110,7 +110,6 @@ function CalculateFunction(buttonNumber) {
       result = operate(firstNumber, secondNumber, operator);
     } else if (buttonValue.includes("operand") && count == 0) {
       operator = buttonValue[2];
-
       dummyDisplayEl.textContent = buttonNumber.textContent;
       count += 2;
     } else if (
@@ -189,6 +188,7 @@ function displayEquals() {
 
 function clearDisplay() {
   displayEl.textContent = "";
+  buttonDecimal.disabled = false;
   console.clear();
 
   // Reset Variables
@@ -215,6 +215,20 @@ function operate(numOne, numTwo, operate) {
     return divide(numOne, numTwo);
   }
 }
+
+// Calculation Back End
+// function operate(numOne, numTwo, operate) {
+//   switch (operate) {
+//     case "add":
+//       return add(numOne, numTwo);
+//     case "substract":
+//       return subtract(numOne, numTwo);
+//     case "multiply":
+//       return multiply(numOne, numTwo);
+//     case "divide":
+//       return divide(numOne, numTwo);
+//   }
+// }
 
 function add(numOne, numTwo) {
   let total = Number(numOne) + Number(numTwo);
